@@ -7976,15 +7976,15 @@ bool js_cocos2dx_AsyncTaskPool_stopTasks(JSContext *cx, uint32_t argc, jsval *vp
     JS_ReportError(cx, "js_cocos2dx_AsyncTaskPool_stopTasks : wrong number of arguments: %d, was expecting %d", argc, 1);
     return false;
 }
-bool js_cocos2dx_AsyncTaskPool_destoryInstance(JSContext *cx, uint32_t argc, jsval *vp)
+bool js_cocos2dx_AsyncTaskPool_destroyInstance(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     if (argc == 0) {
-        cocos2d::AsyncTaskPool::destoryInstance();
+        cocos2d::AsyncTaskPool::destroyInstance();
         args.rval().setUndefined();
         return true;
     }
-    JS_ReportError(cx, "js_cocos2dx_AsyncTaskPool_destoryInstance : wrong number of arguments");
+    JS_ReportError(cx, "js_cocos2dx_AsyncTaskPool_destroyInstance : wrong number of arguments");
     return false;
 }
 
@@ -8030,7 +8030,7 @@ void js_register_cocos2dx_AsyncTaskPool(JSContext *cx, JS::HandleObject global) 
     };
 
     static JSFunctionSpec st_funcs[] = {
-        JS_FN("destoryInstance", js_cocos2dx_AsyncTaskPool_destoryInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("destroyInstance", js_cocos2dx_AsyncTaskPool_destroyInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("getInstance", js_cocos2dx_AsyncTaskPool_getInstance, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
@@ -42114,7 +42114,7 @@ bool js_cocos2dx_ParticleSystem_getResourceFile(JSContext *cx, uint32_t argc, js
     cocos2d::ParticleSystem* cobj = (cocos2d::ParticleSystem *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_ParticleSystem_getResourceFile : Invalid Native Object");
     if (argc == 0) {
-        const std::string ret = cobj->getResourceFile();
+        const std::string& ret = cobj->getResourceFile();
         jsval jsret = JSVAL_NULL;
         jsret = std_string_to_jsval(cx, ret);
         args.rval().set(jsret);
@@ -46066,7 +46066,7 @@ bool js_cocos2dx_Sprite_getResourceType(JSContext *cx, uint32_t argc, jsval *vp)
     cocos2d::Sprite* cobj = (cocos2d::Sprite *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_Sprite_getResourceType : Invalid Native Object");
     if (argc == 0) {
-        const int ret = cobj->getResourceType();
+        int ret = cobj->getResourceType();
         jsval jsret = JSVAL_NULL;
         jsret = int32_to_jsval(cx, ret);
         args.rval().set(jsret);
@@ -46458,7 +46458,7 @@ bool js_cocos2dx_Sprite_getResourceName(JSContext *cx, uint32_t argc, jsval *vp)
     cocos2d::Sprite* cobj = (cocos2d::Sprite *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_Sprite_getResourceName : Invalid Native Object");
     if (argc == 0) {
-        const std::string ret = cobj->getResourceName();
+        const std::string& ret = cobj->getResourceName();
         jsval jsret = JSVAL_NULL;
         jsret = std_string_to_jsval(cx, ret);
         args.rval().set(jsret);
@@ -58388,7 +58388,7 @@ bool js_cocos2dx_TextureCache_getTextureFilePath(JSContext *cx, uint32_t argc, j
             JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
         } while (0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_TextureCache_getTextureFilePath : Error processing arguments");
-        const std::string ret = cobj->getTextureFilePath(arg0);
+        std::string ret = cobj->getTextureFilePath(arg0);
         jsval jsret = JSVAL_NULL;
         jsret = std_string_to_jsval(cx, ret);
         args.rval().set(jsret);
@@ -63056,7 +63056,7 @@ bool js_cocos2dx_TMXTiledMap_getResourceFile(JSContext *cx, uint32_t argc, jsval
     cocos2d::TMXTiledMap* cobj = (cocos2d::TMXTiledMap *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_TMXTiledMap_getResourceFile : Invalid Native Object");
     if (argc == 0) {
-        const std::string ret = cobj->getResourceFile();
+        const std::string& ret = cobj->getResourceFile();
         jsval jsret = JSVAL_NULL;
         jsret = std_string_to_jsval(cx, ret);
         args.rval().set(jsret);

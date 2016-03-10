@@ -544,6 +544,11 @@ JSObject* getObjectFromNamespace(JSContext* cx, JS::HandleObject ns, const char 
     return NULL;
 }
 
+js_type_class_t *js_get_type_from_node(cocos2d::Node* native_obj)
+{
+    return js_get_type_from_native<cocos2d::Node>(native_obj);
+}
+
 void js_add_FinalizeHook(JSContext *cx, JS::HandleObject target)
 {
     JS::RootedObject proto(cx, jsb_FinalizeHook_prototype);
@@ -5900,18 +5905,17 @@ void jsb_FinalizeHook_finalize(JSFreeOp *fop, JSObject *obj)
                 {
                     CC_SAFE_RELEASE(refObj);
                 }
-#if COCOS2D_DEBUG
-                ScriptingCore::retainCount--;
-                CCLOG("------RELEASED------ %d Cpp: %p - JS: %p", ScriptingCore::retainCount, refObj, ownerPtr);
+#if COCOS2D_DEBUG > 1
+                CCLOG("------RELEASED------ Cpp: %p - JS: %p", refObj, ownerPtr);
 #endif // COCOS2D_DEBUG
             }
-#if COCOS2D_DEBUG
+#if COCOS2D_DEBUG > 1
             else {
                 CCLOG("A non ref object have registered finalize hook: %p", nproxy->ptr);
             }
 #endif // COCOS2D_DEBUG
         }
-#if COCOS2D_DEBUG
+#if COCOS2D_DEBUG > 1
         else {
             CCLOG("jsbindings: Failed to remove proxy for js object: %p, it may cause memory leak and future crash", ownerPtr);
         }
